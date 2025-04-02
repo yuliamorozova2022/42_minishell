@@ -1,60 +1,57 @@
-This project is about writing the shell in C language.
+# Custom Shell in C
 
-Requirements for the shell:
+This project involves implementing a shell using the C programming language.
 
-• Display a prompt when waiting for a new command.
+## Features
 
-• Have a working history.
+### ✅ Basic Functionality
+- Displays a **prompt** when waiting for a new command.
+- Maintains a **command history**.
+- Searches and executes the correct program based on:
+  - The `PATH` environment variable.
+  - A relative or absolute path.
 
-• Search and launch the right executable (based on the PATH variable or using a relative or an absolute path).
+### ✅ Input Handling
+- Properly handles **single quotes (`'`)** to prevent interpretation of metacharacters.
+- Properly handles **double quotes (`"`)**, allowing `$` (dollar sign) expansion.
+- Does **not** interpret:
+  - Unclosed quotes.
+  - Special characters such as backslash (`\`) or semicolon (`;`).
 
-• Avoid using more than one global variable to indicate a received signal. Consider the implications: this approach ensures that signal 
-handler will not access main data structures.
+### ✅ Redirections
+- **Input redirection (`<`)** – Reads input from a file.
+- **Output redirection (`>`)** – Writes output to a file.
+- **Append redirection (`>>`)** – Writes output to a file in append mode.
+- **Heredoc (`<<`)** – Reads input until a given delimiter is encountered (without updating history).
 
-• Not interpret unclosed quotes or special characters which are not required by the subject such as backslash or semicolon.
+### ✅ Pipes
+- Supports the **pipe (`|`)** operator to connect the output of one command to the input of the next.
 
-• Handle single quote which should prevent the shell from interpreting the metacharacters in the quoted sequence.
+### ✅ Environment Variables
+- Expands **environment variables** (`$VAR`).
+- Expands **`$?`** to return the exit status of the last executed command.
 
-• Handle double quote which should prevent the shell from interpreting the metacharacters in the quoted sequence except for $ (dollar sign).
+### ✅ Signal Handling
+- Uses **only one global variable** for signal handling.
+- **Does not allow** signal handlers to modify main data structures.
 
-• Implement redirections:
+### ✅ Keyboard Shortcuts (Interactive Mode)
+| Shortcut | Behavior |
+|----------|----------|
+| `Ctrl + C` | Displays a new prompt on a new line. |
+| `Ctrl + D` | Exits the shell. |
+| `Ctrl + \` | Does nothing (default behavior). |
 
-  ◦ < should redirect input.
+### ✅ Built-in Commands
+The shell includes the following built-in commands:
+- **`echo`** (with `-n` option)
+- **`cd`** (only with a relative or absolute path)
+- **`pwd`** (no options)
+- **`export`** (no options)
+- **`unset`** (no options)
+- **`env`** (no options or arguments)
+- **`exit`** (no options)
 
-  ◦ > should redirect output.
+---
 
-  ◦ << should be given a delimiter, then read the input until a line containing the delimiter is seen. But it doesn’t have to update the history!
-
-  ◦ >> should redirect output in append mode.
-
-• Implement pipes (| character). The output of each command in the pipeline is connected to the input of the next command via a pipe.
-
-• Handle environment variables ($ followed by a sequence of characters) which should expand to their values.
-
-• Handle $? which should expand to the exit status of the most recently executed foreground pipeline.
-
-• Handle ctrl-C, ctrl-D and ctrl-\ which should behave like in bash.
-
-• In interactive mode:
-
-  ◦ ctrl-C displays a new prompt on a new line.
-
-  ◦ ctrl-D exits the shell.
-
-  ◦ ctrl-\ does nothing.
-
-• The shell must implement the following builtins:
-
-  ◦ echo with option -n
-
-  ◦ cd with only a relative or absolute path
-
-  ◦ pwd with no options
-
-  ◦ export with no options
-
-  ◦ unset with no options
-
-  ◦ env with no options or arguments
-
-  ◦ exit with no options
+🚀 **This shell provides a simplified Bash-like experience, handling essential command execution, redirections, pipes, and built-ins efficiently.**
